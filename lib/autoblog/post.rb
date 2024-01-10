@@ -11,5 +11,12 @@ module AutoBlog
     def to_html content
       "<p>#{content}</p>"
     end
+
+    def write(file, converted)
+      path = File.join(File.dirname(__FILE__), *%w[.. .. dest], file.sub(/\.md/, '.html'))
+      File.open(path, 'w') do |f|
+        f.write(converted)
+      end
+    end
   end
 end
