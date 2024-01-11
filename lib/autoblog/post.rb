@@ -6,6 +6,7 @@ module AutoBlog
 
     def initialize(file)
       @content = read_source file
+      @parser = AutoBlog::MarkdownParser.new
     end
 
     def read_source file
@@ -15,8 +16,7 @@ module AutoBlog
     end
 
     def to_html content
-      parser = AutoBlog::MarkdownParser.new
-      parser.convert_paragraph content
+      @parser.convert_paragraph content
     end
 
     def write(file, converted)
