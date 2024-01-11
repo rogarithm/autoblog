@@ -15,8 +15,8 @@ module AutoBlog
       ).strip
     end
 
-    def to_html content
-      @parser.convert_paragraph content
+    def to_html
+      @parser.convert_paragraph @content
     end
 
     def write(file, converted)
