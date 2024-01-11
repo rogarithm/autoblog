@@ -2,10 +2,10 @@ require_relative 'markdown_parser'
 
 module AutoBlog
   class Post
-    attr_reader :content
+    attr_reader :source
 
     def initialize(file)
-      @content = read_source file
+      @source = read_source file
       @parser = AutoBlog::MarkdownParser.new
     end
 
@@ -16,7 +16,7 @@ module AutoBlog
     end
 
     def to_html
-      @parser.convert_paragraph @content
+      @parser.convert_paragraph @source
     end
 
     def write(file, converted)
