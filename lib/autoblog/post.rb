@@ -2,7 +2,6 @@ require_relative 'markdown_parser'
 
 module AutoBlog
   class Post
-    attr_reader :source
 
     def initialize(file)
       @source = read_source file
