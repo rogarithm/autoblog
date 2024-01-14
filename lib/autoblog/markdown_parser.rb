@@ -12,5 +12,8 @@ module AutoBlog
     def convert_header3 line
       line.sub(/^###(.*)/, '<h3>\1</h3>')
     end
+    def convert_bold line
+      line.gsub(/\*\*(\S[^*]*\S?)\*\*/, '<strong>\1</strong>')
+    end
   end
 end
