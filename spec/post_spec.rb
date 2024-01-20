@@ -14,6 +14,6 @@ describe AutoBlog::Post do
   it "html로 변환된 파일을 저장할 수 있다" do
     p = AutoBlog::Post.new(File.join(File.dirname(__FILE__), *%w[source]), 'test.md')
     converted = p.to_html()
-    p.write('test.md', converted)
+    p.write(File.join(File.dirname(__FILE__), *%w[dest]), 'test.md', converted)
   end
 end

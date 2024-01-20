@@ -18,8 +18,8 @@ module AutoBlog
       @parser.convert_paragraph @source
     end
 
-    def write(file, converted)
-      path = File.join(File.dirname(__FILE__), *%w[.. .. dest], file.sub(/\.md/, '.html'))
+    def write(path, file, converted)
+      path = File.join(path, file.sub(/\.md/, '.html'))
       File.open(path, 'w') do |f|
         f.write(converted)
       end
