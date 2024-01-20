@@ -3,14 +3,14 @@ require_relative 'markdown_parser'
 module AutoBlog
   class Post
 
-    def initialize(file)
-      @source = read_source file
+    def initialize(path, file)
+      @source = read_source(path, file)
       @parser = AutoBlog::MarkdownParser.new
     end
 
-    def read_source file
+    def read_source(path, file)
       File.read(
-        File.join(File.dirname(__FILE__), *%w[.. .. source], file)
+        File.join(path, file)
       ).strip
     end
 
