@@ -8,4 +8,9 @@ describe AutoBlog::Site do
       p s.posts
     end
   end
+
+  it "만든 post 객체를 가지고 dest 디렉토리에 변환된 html 파일을 저장한다" do
+      s = AutoBlog::Site.new(File.join(File.dirname(__FILE__), *%w[source]))
+      s.process(File.join(File.dirname(__FILE__), *%w[dest]))
+  end
 end

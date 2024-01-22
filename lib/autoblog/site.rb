@@ -9,5 +9,11 @@ module AutoBlog
         @posts << Post.new(path, md_file)
       end
     end
+
+    def process(path)
+      @posts.each do |post|
+        post.write(path)
+      end
+    end
   end
 end

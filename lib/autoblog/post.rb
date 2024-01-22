@@ -4,6 +4,7 @@ module AutoBlog
   class Post
 
     def initialize(path, file)
+      @file_name = file.split(".").first
       @source = read_source(path, file)
       @parser = AutoBlog::MarkdownParser.new
     end
@@ -18,9 +19,9 @@ module AutoBlog
       @parser.convert_paragraph @source
     end
 
-    def write(path, file)
+    def write(path)
       converted = self.to_html()
-      path = File.join(path, file.sub(/\.md/, '.html'))
+      path = File.join(path, "#{@file_name}.html")
       File.open(path, 'w') do |f|
         f.write(converted)
       end
