@@ -1,3 +1,5 @@
+require_relative 'post'
+
 module AutoBlog
   class Site
     attr_accessor :posts
