@@ -21,10 +21,11 @@ module AutoBlog
 
     def write(path)
       converted = self.to_html()
-      path = File.join(path, "#{@file_name}.html")
-      File.open(path, 'w') do |f|
+      dest_path = File.join(path, "#{@file_name}.html")
+      File.open(dest_path, 'w') do |f|
         f.write(converted)
       end
+      dest_path
     end
   end
 end

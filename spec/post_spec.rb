@@ -10,6 +10,7 @@ describe AutoBlog::Post do
   end
 
   it "html로 변환된 파일을 저장할 수 있다" do
-    @p.write(File.join(File.dirname(__FILE__), *%w[dest]))
+    dest_path = @p.write(File.join(File.dirname(__FILE__), *%w[dest]))
+    expect(File.exist? dest_path).to eq(true)
   end
 end
