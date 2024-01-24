@@ -2,4 +2,6 @@
 .DS_Store
 /dest
 /source
+/spec/dest
+/spec/source
 tags
