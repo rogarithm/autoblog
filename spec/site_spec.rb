@@ -20,7 +20,7 @@ describe AutoBlog::Site do
   it "각 post의 url 정보를 가지고 있다" do
       s = AutoBlog::Site.new(File.join(File.dirname(__FILE__), *%w[source]))
       s.urls.keys.each do |key|
-        expect(s.urls[key]).to match(/rogarithm\.github\.io\/blog\/[\w-]+\.html/)
+        expect(s.urls[key]).to match(/\.\/[\w-]+\.html/)
       end
   end
 

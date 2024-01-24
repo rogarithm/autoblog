@@ -19,7 +19,7 @@ module AutoBlog
 
     def make_url
       ext = "html"
-      "rogarithm.github.io/blog/".concat(@file_name, ".", ext)
+      "./".concat(@file_name, ".", ext)
     end
 
     def to_html

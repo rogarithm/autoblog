@@ -16,6 +16,6 @@ describe AutoBlog::Post do
 
   it "url 정보를 만들어낼 수 있다" do
     url = @p.make_url
-    expect(url).to eq("rogarithm.github.io/blog/test.html")
+    expect(url).to eq("./test.html")
   end
 end
