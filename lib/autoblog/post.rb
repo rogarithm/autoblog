@@ -6,6 +6,7 @@ module AutoBlog
     def initialize(path, file)
       @file_name = file.split(".").first
       @source = read_source(path, file)
+      @url = make_url
       @parser = AutoBlog::MarkdownParser.new
     end
 
@@ -13,6 +14,11 @@ module AutoBlog
       File.read(
         File.join(path, file)
       ).strip
+    end
+
+    def make_url
+      ext = "html"
+      "rogarithm.github.io/blog/".concat(@file_name, ".", ext)
     end
 
     def to_html

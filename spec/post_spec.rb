@@ -13,4 +13,9 @@ describe AutoBlog::Post do
     dest_path = @p.write(File.join(File.dirname(__FILE__), *%w[dest]))
     expect(File.exist? dest_path).to eq(true)
   end
+
+  it "url 정보를 만들어낼 수 있다" do
+    url = @p.make_url
+    expect(url).to eq("rogarithm.github.io/blog/test.html")
+  end
 end
