@@ -2,13 +2,16 @@ require_relative 'post'
 
 module AutoBlog
   class Site
-    attr_accessor :posts
+    attr_accessor :posts, :urls
 
     def initialize(path)
       @posts = []
+      @urls = {}
       Dir["#{path}/*.md"].each do |full_path|
         md_file = full_path.split("/")[-1]
-        @posts << Post.new(path, md_file)
+        post = Post.new(path, md_file)
+        @posts << post
+        @urls[md_file.split(".").first] = post.url
       end
     end
 

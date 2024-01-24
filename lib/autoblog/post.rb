@@ -2,6 +2,7 @@ require_relative 'markdown_parser'
 
 module AutoBlog
   class Post
+    attr_reader :url
 
     def initialize(path, file)
       @file_name = file.split(".").first

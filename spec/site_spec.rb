@@ -16,4 +16,11 @@ describe AutoBlog::Site do
       s.process(File.join(File.dirname(__FILE__), *%w[dest]))
       clean_up(File.join(File.dirname(__FILE__), *%w[dest]))
   end
+
+  it "각 post의 url 정보를 가지고 있다" do
+      s = AutoBlog::Site.new(File.join(File.dirname(__FILE__), *%w[source]))
+      s.urls.keys.each do |key|
+        expect(s.urls[key]).to match(/rogarithm\.github\.io\/blog\/[\w-]+\.html/)
+      end
+  end
 end
