@@ -15,10 +15,23 @@ module AutoBlog
       end
     end
 
+    def prepare_index path
+      content = ""
+      @urls.keys.each do |key|
+        content.concat("<a href=\"#{@urls[key]}\">#{key}</a>\n")
+      end
+      dest_path = File.join(path, "index.html")
+      File.open(dest_path, 'w') do |f|
+        f.write(content)
+      end
+      content
+    end
+
     def process(path)
       @posts.each do |post|
         post.write(path)
       end
+      prepare_index path
     end
   end
 end

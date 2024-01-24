@@ -23,4 +23,10 @@ describe AutoBlog::Site do
         expect(s.urls[key]).to match(/rogarithm\.github\.io\/blog\/[\w-]+\.html/)
       end
   end
+
+  it "각 post로 이동할 수 있는 탐색 페이지를 만들어낼 수 있다" do
+      s = AutoBlog::Site.new(File.join(File.dirname(__FILE__), *%w[source]))
+      s.prepare_index File.join(File.dirname(__FILE__), *%w[dest])
+      expect(File).to exist("#{File.join(File.dirname(__FILE__), *%w[dest], "index.html")}")
+  end
 end
