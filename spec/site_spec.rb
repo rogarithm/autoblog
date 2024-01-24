@@ -1,5 +1,5 @@
 require_relative '../lib/autoblog/site'
-require_relative './helpers/spec_helper'
+require 'helpers/spec_helper'
 
 describe AutoBlog::Site do
   context "path 내의 md 파일 모두 post 객체로 만든다" do
@@ -14,6 +14,6 @@ describe AutoBlog::Site do
   it "만든 post 객체를 가지고 dest 디렉토리에 변환된 html 파일을 저장한다" do
       s = AutoBlog::Site.new(File.join(File.dirname(__FILE__), *%w[source]))
       s.process(File.join(File.dirname(__FILE__), *%w[dest]))
-      SpecHelper.clean_up(File.join(File.dirname(__FILE__), *%w[dest]))
+      clean_up(File.join(File.dirname(__FILE__), *%w[dest]))
   end
 end
