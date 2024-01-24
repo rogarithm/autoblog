@@ -28,4 +28,18 @@ describe AutoBlog::MarkdownParser do
       expect(@m.convert_header3 '###  hi there!').to eq('<h3>hi there!</h3>')
     end
   end
+
+  context "단락" do
+    it "빈 줄 없이 이어진 글을 하나의 단락으로 본다" do
+      expect(@m.convert_paragraph "I really like using Markdown. I think I'll use it to format all of my documents from now on.").to eq("<p>I really like using Markdown. I think I'll use it to format all of my documents from now on.</p>")
+    end
+    it "하나의 빈 줄로 띄워지면 별개의 단락으로 본다" do
+      expect(@m.convert_paragraph "I really like using Markdown.\nI think I'll use it to format all of my documents from now on.").to eq("<p>I really like using Markdown.</p>\n<p>I think I'll use it to format all of my documents from now on.</p>")
+    end
+    it "하나 이상의 빈 줄로 띄워지면 별개의 단락으로 본다" do
+      expect(@m.convert_paragraph "I\n\nreally\nlikes\n\n\nyou!").to eq(
+        "<p>I</p>\n<p>really</p>\n<p>likes</p>\n<p>you!</p>"
+      )
+    end
+  end
 end

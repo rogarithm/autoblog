@@ -1,7 +1,12 @@
 module AutoBlog
   class MarkdownParser
     def convert_paragraph content
-      "<p>#{content}</p>"
+      flatten = content.gsub(/\n+/, "\n").split("\n")
+      result = []
+      flatten.each do |paragraph|
+        result << "<p>#{paragraph}</p>\n"
+      end
+      result.join('').chomp
     end
     def convert_header1 line
       line.sub(/^#\s+(.*)/, '<h1>\1</h1>')
