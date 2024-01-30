@@ -2,6 +2,12 @@ tokenizer 구현하기
  참고할 곳: https://blog.beezwax.net/writing-a-markdown-compiler/
  순서 있는/없는 리스트 같이 여러 줄이 한 요소인 경우 참고 자료에선 토큰 변환 어떤 식으로 하는지 테스트 및 확인하기
  참고 자료 기반으로 tokenizer 구현하기
+style 적용 어떻게?
+ head에 link 태그로 css 파일 경로 넣어줘야 한다
+ css 파일 경로를 변수로 받을 수 있다
+ 마크다운 파일에 css 파일 경로를 추가할 수 있다
+ 마크다운 파일에 css 파일 경로로 치환할 변수명을 erb 문법으로 작성하고, 이 값을 정의하는 루비 파일을 외부에 작성
+ erb->html과 markdown->html의 변환 순서는 어떻게 해야 할까?
 
 수동 배포하기
  원문에서 단락 정리하기
