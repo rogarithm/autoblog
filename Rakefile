@@ -11,7 +11,7 @@ task :publish => [:clean] do
 end
 
 task :clean do
-  path = File.join(File.dirname(__FILE__), *%w[dest], "*.html")
-  html_files = Dir.glob(path)
+  html_pat = File.join(File.dirname(__FILE__), *%w[dest], "*.html")
+  html_files = Dir.glob(html_pat)
   FileUtils.rm(html_files)
 end
