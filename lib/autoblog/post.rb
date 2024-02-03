@@ -27,7 +27,7 @@ module AutoBlog
       @parser.convert_paragraph @source
     end
 
-    def wrap_with_template converted, template_path
+    def wrap_with_template(converted, template_path=File.join(File.dirname(__FILE__), *%w[.. layout default.html]))
       b = binding
       b.local_variable_set(:converted, converted)
       template = ERB.new(File.read(template_path)).result(b)
@@ -35,7 +35,7 @@ module AutoBlog
 
     def write(path)
       converted = self.to_html()
-      template_wrapped = wrap_with_template(converted, File.join(File.dirname(__FILE__), *%w[.. layout default.html]))
+      template_wrapped = wrap_with_template(converted)
       dest_path = File.join(path, "#{@file_name}.html")
       File.open(dest_path, 'w') do |f|
         f.write(template_wrapped)
