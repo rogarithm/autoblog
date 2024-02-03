@@ -14,4 +14,8 @@ task :clean do
   html_pat = File.join(File.dirname(__FILE__), *%w[dest], "*.html")
   html_files = Dir.glob(html_pat)
   FileUtils.rm(html_files)
+
+  css_pat = File.join(File.dirname(__FILE__), *%w[dest css])
+  css_dir = Dir.glob(css_pat)
+  FileUtils.rm_rf(css_dir)
 end

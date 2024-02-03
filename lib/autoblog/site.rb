@@ -1,4 +1,5 @@
 require_relative 'post'
+require 'fileutils'
 
 module AutoBlog
   class Site
@@ -27,11 +28,20 @@ module AutoBlog
       content
     end
 
+    def copy_static_info
+      # make css directory, and copy every .css files in source to css directory
+      FileUtils.cp_r(
+        File.join(File.dirname(__FILE__), *%w[.. .. lib css]),
+        File.join(File.dirname(__FILE__), *%w[.. .. dest css])
+      )
+    end
+
     def process(path)
       @posts.each do |post|
         post.write(path)
       end
       prepare_index path
+      copy_static_info
     end
   end
 end

@@ -27,9 +27,14 @@ module AutoBlog
       @parser.convert_paragraph @source
     end
 
-    def wrap_with_template(converted, template_path=File.join(File.dirname(__FILE__), *%w[.. layout default.html]))
+    def wrap_with_template(
+      converted,
+      template_path=File.join(File.dirname(__FILE__), *%w[.. layout default.html]),
+      style_path=File.join(File.dirname(__FILE__), *%w[.. css main.css])
+    )
       b = binding
       b.local_variable_set(:converted, converted)
+      b.local_variable_set(:style, style_path)
       template = ERB.new(File.read(template_path)).result(b)
     end
 
