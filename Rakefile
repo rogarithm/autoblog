@@ -21,19 +21,19 @@ task :clean do
 end
 
 task :test_token do
-  Dir.glob('./lib/tokenizer/**/*.rb').each do |file|
+  Dir.glob('./lib/autoblog/converter/tokenizer/**/*.rb').each do |file|
     require file
   end
-  Dir.glob('./test/test_token*.rb').each do |file|
+  Dir.glob('./spec/test_token*.rb').each do |file|
     require file
   end
 end
 task :test_parser do
-  require './lib/parser/parsers/parser_factory.rb'
-  Dir.glob('./lib/**/*.rb').each.with_index do |file|
+  require './lib/autoblog/converter/parser/parsers/parser_factory.rb'
+  Dir.glob('./lib/autoblog/converter/**/*.rb').each.with_index do |file|
     require file
   end
-  Dir.glob('./test/test_parser.rb').each do |file|
+  Dir.glob('./spec/test_parser.rb').each do |file|
     require file
   end
 end
