@@ -1,5 +1,6 @@
 require_relative './lib/autoblog.rb'
 require 'rake/clean'
+require 'rspec/core/rake_task'
 
 task :default => [:publish]
 
@@ -29,11 +30,8 @@ task :test_token do
   end
 end
 task :test_parser do
-  require './lib/autoblog/converter/parser/parsers/parser_factory.rb'
-  Dir.glob('./lib/autoblog/converter/**/*.rb').each.with_index do |file|
-    require file
+  RSpec::Core::RakeTask.new(:spec) do |t|
+    t.pattern = 'spec/parser_spec.rb'
   end
-  Dir.glob('./spec/test_parser.rb').each do |file|
-    require file
-  end
+  Rake::Task["spec"].execute
 end
