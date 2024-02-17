@@ -22,12 +22,10 @@ task :clean do
 end
 
 task :test_token do
-  Dir.glob('./lib/autoblog/converter/tokenizer/**/*.rb').each do |file|
-    require file
+  RSpec::Core::RakeTask.new(:spec) do |t|
+    t.pattern = 'spec/token*.rb'
   end
-  Dir.glob('./spec/test_token*.rb').each do |file|
-    require file
-  end
+  Rake::Task["spec"].execute
 end
 task :test_parser do
   RSpec::Core::RakeTask.new(:spec) do |t|
