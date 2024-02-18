@@ -33,3 +33,9 @@ task :test_parser do
   end
   Rake::Task["spec"].execute
 end
+task :test_generator do
+  RSpec::Core::RakeTask.new(:spec) do |t|
+    t.pattern = 'spec/generator_spec.rb'
+  end
+  Rake::Task["spec"].execute
+end
