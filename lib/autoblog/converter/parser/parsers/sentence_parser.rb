@@ -5,6 +5,6 @@ class SentenceParser < BaseParser
   include MatchesFirst
 
   def match(tokens)
-    match_first tokens, emphasis_parser, bold_parser, text_parser
+    match_first tokens, dash_parser, emphasis_parser, bold_parser, text_parser
   end
 end

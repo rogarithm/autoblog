@@ -6,6 +6,7 @@ require_relative "paragraph_parser"
 require_relative "sentences_and_eof_parser"
 require_relative "sentences_and_newline_parser"
 require_relative "body_parser"
+require_relative "dash_parser"
 
 class ParserFactory
   PARSERS = {
@@ -17,6 +18,7 @@ class ParserFactory
     sentences_and_eof_parser:     SentencesAndNewlineParser,
     sentences_and_newline_parser: SentencesAndEofParser,
     body_parser:                  BodyParser,
+    dash_parser:                  DashParser
   }.freeze
 
   def self.build(name, *args, &block)

@@ -18,4 +18,10 @@ describe Parser do
     body_node = parse("__Foo__ and *text*.\n\nAnother para.")
     expect(body_node.consumed).to eq 14
   end
+
+  it "parse text that has dash character" do
+    tokens = @tokenizer.tokenize("- foo")
+    nodes = @parser.parse(tokens)
+    expect(nodes.consumed).to eq 3
+  end
 end
