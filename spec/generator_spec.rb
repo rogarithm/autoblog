@@ -20,7 +20,7 @@ describe Generator do
     @generator.generate(ast)
   end
 
-  it "generates_html" do
+  it "generates html from markdown" do
     expect(generate("__Foo__ and *text*.\n\nAnother para.")).to eq "<p><strong>Foo</strong> and <em>text</em>.</p><p>Another para.</p>"
   end
 end

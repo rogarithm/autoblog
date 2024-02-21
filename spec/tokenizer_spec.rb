@@ -8,13 +8,13 @@ describe Tokenizer do
     @tokenizer = Tokenizer.new
   end
 
-  it "simple" do
+  it "tokenize text" do
     tokens = @tokenizer.tokenize('Hi')
     expect(tokens.first.type).to eq 'TEXT'
     expect(tokens.first.value).to eq 'Hi'
   end
 
-  it "underscore" do
+  it "tokenize text with underscores" do
     tokens = @tokenizer.tokenize('_Foo_')
 
     expect(tokens.first.type).to eq 'UNDERSCORE'
@@ -27,7 +27,7 @@ describe Tokenizer do
     expect(tokens.third.value).to eq '_'
   end
 
-  it "paragraph" do
+  it "tokenize paragraph" do
     tokens = @tokenizer.tokenize("Hello, World!
 This is a _quite_ **long** text for what we've been testing so far.
 

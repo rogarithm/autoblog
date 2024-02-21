@@ -14,7 +14,7 @@ describe Parser do
     @parser.parse(@tokenizer.tokenize(markdown))
   end
 
-  it "test_simple" do
+  it "makes node from markdown content" do
     body_node = parse("__Foo__ and *text*.\n\nAnother para.")
     expect(body_node.consumed).to eq 14
   end
