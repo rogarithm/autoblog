@@ -1,0 +1,2 @@
+class ListItemParser < BaseParser
+end

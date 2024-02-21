@@ -24,4 +24,10 @@ describe Parser do
     nodes = @parser.parse(tokens)
     expect(nodes.consumed).to eq 3
   end
+
+  it "parse one item list" do
+    tokens = @tokenizer.tokenize("- foo\n")
+    nodes = @parser.parse(tokens)
+    expect(nodes.consumed).to eq 3
+  end
 end
