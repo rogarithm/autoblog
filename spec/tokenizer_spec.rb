@@ -35,4 +35,15 @@ And this is another para.")
     #puts tokens
     expect(true).to eq true
   end
+
+  it "tokenize text with dash" do
+    tokens = @tokenizer.tokenize('- first item')
+
+    expect(tokens.first.type).to eq 'DASH'
+    expect(tokens.first.value).to eq '-'
+
+    expect(tokens.second.type).to eq 'TEXT'
+    expect(tokens.second.value).to eq ' first item'
+  end
+
 end
