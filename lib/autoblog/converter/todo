@@ -3,9 +3,10 @@ dash
  parser는 어떻게 동작해야 할까?
 list item 하나
  어떤 예제로 테스트해야 할까?
- 순서대로 - 기호, 빈 칸 하나, 텍스트, newline char이 나와야 한다
-  각각이 match_one, match_one, match_plus, match_one 순으로 매칭되어야 한다
+ 순서대로 - 기호, 빈 칸 하나 이상, 텍스트 하나 이상, newline char이 나와야 한다
+  각각이 match_one, match_plus, match_plus, match_one 순으로 매칭되어야 한다
   이 순서대로 concern을 적용할 수 있나? <- 기존 코드에 이런 식으로 하고 있는 부분이 있나?
+  match_plus와 match_one을 구현하자
  기존 parser로는 구현이 어려워 보인다
 동일한 위계의 list item 여러 개
 2단계 위계의 list 하나
