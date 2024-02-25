@@ -10,6 +10,7 @@ require 'pry'
 describe MatchesStar do
   let(:ms) { Class.new { extend MatchesStar } }
   let(:mf) { Class.new { extend MatchesFirst } }
+  let(:mp) { Class.new { extend MatchesPlus } }
 
   before(:each) do
     @tokenizer = Tokenizer.new
@@ -42,6 +43,14 @@ describe MatchesStar do
     expect(node.consumed).to eq(1)
   end
 
-  it "matches 1 or more" do
+  it "matchesPlus matches 1 or more" do
+    zero = @tokenizer.tokenize("")
+    nodes, consumed  = mp.match_plus(zero, with: @sentence_parser)
+    expect(nodes).to eq(Node.null)
+
+    one = @tokenizer.tokenize("ttt")
+    nodes, consumed  = mp.match_plus(one, with: @sentence_parser)
+    expect(nodes.first.value).to eq("ttt")
+    expect(consumed).to eq(1)
   end
 end
