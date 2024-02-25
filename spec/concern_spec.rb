@@ -14,18 +14,32 @@ describe MatchesStar do
   before(:each) do
     @tokenizer = Tokenizer.new
     @sentence_parser = ParserFactory.build(:sentence_parser)
+    @dash_parser = ParserFactory.build(:dash_parser)
+    @text_parser = ParserFactory.build(:text_parser)
   end
 
-  it "matches 0 or more" do
-    tokens = @tokenizer.tokenize("matches 0 or more\n")
-    nodes, consumed = ms.match_star(tokens, with: @sentence_parser)
-    puts "NODES: #{nodes}, CONSUMED: #{consumed}"
+  it "matchesStar matches 0 or more" do
+    zero = @tokenizer.tokenize("")
+    nodes, consumed = ms.match_star(zero, with: @sentence_parser)
+    expect(consumed).to eq(0)
+
+    one = @tokenizer.tokenize("matches 0 or more\n")
+    nodes, consumed = ms.match_star(one, with: @sentence_parser)
+    expect(consumed).to eq(1)
+
+    more = @tokenizer.tokenize("- matches 0 or more\n")
+    nodes, consumed = ms.match_star(more, with: @sentence_parser)
+    expect(consumed).to eq(2)
   end
 
-  it "matches only 1" do
-    tokens = @tokenizer.tokenize("matches 0 or more\n")
-    nodes, consumed = mf.match_first(tokens, @sentence_parser)
-    puts "NODES: #{nodes}, CONSUMED: #{consumed}"
+  it "matchesFirst matches only 1" do
+    one = @tokenizer.tokenize("ttt\n")
+    node = mf.match_first(one, @dash_parser, @text_parser)
+    expect(node.consumed).to eq(1)
+
+    two = @tokenizer.tokenize("- ttt\n")
+    node = mf.match_first(two, @dash_parser, @text_parser)
+    expect(node.consumed).to eq(1)
   end
 
   it "matches 1 or more" do
