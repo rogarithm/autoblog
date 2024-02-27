@@ -25,9 +25,10 @@ describe Parser do
     expect(nodes.consumed).to eq 3
   end
 
-  it "parse one item list" do
+  it "list_item_parser parse one list item" do
     tokens = @tokenizer.tokenize("- foo\n")
-    nodes = @parser.parse(tokens)
+    parser = ParserFactory.build(:list_item_parser)
+    nodes = parser.match(tokens)
     expect(nodes.consumed).to eq 3
   end
 end
