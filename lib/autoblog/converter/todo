@@ -1,15 +1,31 @@
-dash
- 아직 list를 고려할 필요는 없다
- parser는 어떻게 동작해야 할까?
+x dash
 list item 하나
  어떤 예제로 테스트해야 할까?
  순서대로 - 기호, 빈 칸 하나 이상, 텍스트 하나 이상, newline char이 나와야 한다
   각각이 match_one, match_plus, match_plus, match_one 순으로 매칭되어야 한다
   이 순서대로 concern을 적용할 수 있나? <- 기존 코드에 이런 식으로 하고 있는 부분이 있나?
-  match_plus와 match_one을 구현하자
+ x match_plus 구현
+ match_one 구현
  기존 parser로는 구현이 어려워 보인다
+  token 추가해야 하나?
 동일한 위계의 list item 여러 개
 2단계 위계의 list 하나
 2단계 위계의 list 여러 개
 
 list item인 경우와 단순 sentence인 경우를 구분해 parsing할 수 있는지 확인하는 테스트 짜기
+
+matches_*의 반환값
+ matches_first는 node만 반환하고 node, consumed 형태로 반환하지 않는다.
+ 왜 그런거지? 바꿔야 하나?
+concern_spec에서 describe MatchesStar 대신 describe Concern 쓰도록 모듈 구성 바꾸기
+ MatchesStar, MatchesFirst 앞에 Concern:: 붙여야 한다
+
+find
+ match_star 쓰는 곳에선 parser를 하나만 쓰는지 확인하기 위함
+ lib 디렉토리 아래 모든 루비 파일에 대해
+ find ./lib -type file -name "*.rb" |\
+ match_star를 포함하는 줄을 검색하고, 그 내용을 출력한다
+ xargs grep -e ".*match_star.*"
+ 줄 번호도 함께!
+ -n
+ => find ./lib -type file -name "*.rb" | xargs grep -e ".*match_star.*" -n
