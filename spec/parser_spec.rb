@@ -15,13 +15,21 @@ describe Parser do
   end
 
   it "makes node from markdown content" do
-    body_node = parse("__Foo__ and *text*.\n\nAnother para.")
+    tokens = @tokenizer.tokenize("__Foo__ and *text*.\n\nAnother para.")
+    body_node = @parser.parse(tokens)
     expect(body_node.consumed).to eq 14
   end
 
   it "parse text that has dash character" do
     tokens = @tokenizer.tokenize("- foo")
     nodes = @parser.parse(tokens)
+    expect(nodes.consumed).to eq 3
+  end
+
+  it "list_item_parser parse one list item" do
+    tokens = @tokenizer.tokenize("- foo\n")
+    parser = ParserFactory.build(:list_item_parser)
+    nodes = parser.match(tokens)
     expect(nodes.consumed).to eq 3
   end
 end

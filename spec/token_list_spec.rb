@@ -25,6 +25,11 @@ describe TokenList do
     expect(token_list.peek_or(%w(UNDERSCORE TEXT UNDERSCORE), %w(TEXT))).to eq true
   end
 
+  it "peek_or() dash" do
+    token_list = @tokens.tokenize('-')
+    expect(token_list.peek_or(%w(DASH))).to eq true
+  end
+
   it "should give tokens to peek() in same order with given token list" do
     token_list = @tokens.tokenize('_Foo_')
     expect(token_list.peek('UNDERSCORE', 'TEXT', 'UNDERSCORE')).to eq true
