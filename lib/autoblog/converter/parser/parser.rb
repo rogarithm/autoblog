@@ -5,7 +5,7 @@ require_relative 'parsers/parser_factory'
 class Parser
   def parse(tokens)
     body = body_parser.match(tokens)
-    raise "Syntax error: #{tokens[body.consumed]}" unless tokens.count == body.consumed
+    raise "Syntax error: tokens.count is not equal to body.consumed" unless tokens.count == body.consumed
     body
   end
 
