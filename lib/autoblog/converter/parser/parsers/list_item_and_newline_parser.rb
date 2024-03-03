@@ -1,4 +1,4 @@
-require_relative "concerns/matches_star"
+require_relative "concerns/matches_first"
 
 class ListItemAndNewlineParser < BaseParser
   include MatchesFirst
