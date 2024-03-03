@@ -43,6 +43,11 @@ describe TokenList do
     expect(token_list.peek_at(2, 'UNDERSCORE')).to eq true
   end
 
+  it "can put over 1 token to peek_at()" do
+    token_list = @tokens.tokenize('_Foo_')
+    expect(token_list.peek_at(1, 'TEXT', 'UNDERSCORE')).to eq true
+  end
+
   it "grab() picks tokens of smaller count than total token count" do
     token_list = @tokens.tokenize('_Foo_')
     grabbed = token_list.grab!(1) 

@@ -32,4 +32,19 @@ describe Parser do
     nodes = parser.match(tokens)
     expect(nodes.consumed).to eq 3
   end
+
+  it "list_item_and_newline_parser parse one list item and newline" do
+    tokens = @tokenizer.tokenize("- foo\n\n")
+    parser = ParserFactory.build(:list_item_and_newline_parser)
+    nodes = parser.match(tokens)
+    expect(nodes.consumed).to eq 5
+  end
+
+  it "parse 1 list item and newline" do
+    tokens = @tokenizer.tokenize("- foo\n\n")
+    p "TOKENS' COUNT: #{tokens.count}"
+    nodes = @parser.parse(tokens)
+    p "NODE'S VALUE: #{nodes.paragraphs}"
+    expect(nodes.consumed).to eq 5
+  end
 end
