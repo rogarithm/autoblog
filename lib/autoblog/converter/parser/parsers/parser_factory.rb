@@ -9,6 +9,7 @@ require_relative "body_parser"
 require_relative "dash_parser"
 require_relative "list_item_parser"
 require_relative "list_item_and_newline_parser"
+require_relative "list_item_and_eof_parser"
 
 class ParserFactory
   PARSERS = {
@@ -22,7 +23,8 @@ class ParserFactory
     body_parser:                  BodyParser,
     dash_parser:                  DashParser,
     list_item_parser:             ListItemParser,
-    list_item_and_newline_parser: ListItemAndNewlineParser
+    list_item_and_newline_parser: ListItemAndNewlineParser,
+    list_item_and_eof_parser:     ListItemAndEofParser
   }.freeze
 
   def self.build(name, *args, &block)
