@@ -11,11 +11,7 @@ module MatchesPlus
       consumed      += node.consumed
     end
 
-    if consumed == 0
-      Node.null
-    else
-      [matched_nodes, consumed]
-    end
+    [matched_nodes, consumed]
   end
 end
 
