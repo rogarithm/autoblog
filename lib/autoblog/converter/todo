@@ -1,15 +1,5 @@
-list item 하나
- list item인 경우와 단순 sentence인 경우를 구분해 parsing할 수 있는지 확인하는 테스트 추가하기
-  기존 구현에 다소 문제가 있다
-  처음에 tokenize해서 나온 token의 갯수와 parse해서 얻은 node의 consumed 값이 같아야 한다
-  list item에선 text만 consumed에 포함하고 있는데, 이게 문제인 것 같다
+동일한 위계의 list item 여러 개와 일반적인 단락을 같이 파싱할 수 있어야 한다
 
- 순서대로 - 기호, 빈 칸 하나 이상, 텍스트 하나 이상, newline char이 나와야 한다
-  각각이 match_one, match_plus, match_plus, match_one 순으로 매칭되어야 한다
-  이 순서대로 concern을 적용할 수 있나? <- 기존 코드에 이런 식으로 하고 있는 부분이 있나?
- x match_plus 구현
- match_one 구현
-동일한 위계의 list item 여러 개
 2단계 위계의 list 하나
 2단계 위계의 list 여러 개
 
