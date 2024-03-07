@@ -45,4 +45,17 @@ describe Parser do
     nodes = @parser.parse(tokens)
     expect(nodes.consumed).to eq 4
   end
+
+  it "list_items_and_eof_parser parse list items of the same level" do
+    tokens = @tokenizer.tokenize("- foo\n- bar\n- baz\n")
+    parser = ParserFactory.build(:list_items_and_eof_parser)
+    nodes = parser.match(tokens)
+    expect(nodes.consumed).to eq 10 #(dash text newline) * 3 + eof
+  end
+
+  it "parse list items of the same level" do
+    tokens = @tokenizer.tokenize("- foo\n- bar\n- baz\n")
+    nodes = @parser.parse(tokens)
+    expect(nodes.consumed).to eq 10 #(dash text newline) * 3 + eof
+  end
 end
