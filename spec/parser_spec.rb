@@ -58,4 +58,10 @@ describe Parser do
     nodes = @parser.parse(tokens)
     expect(nodes.consumed).to eq 10 #(dash text newline) * 3 + eof
   end
+
+  it "parse plain paragraph and list items of the same level" do
+    tokens = @tokenizer.tokenize("- foo\n- bar\n- baz\n\n__Foo__ and *text*.\n\nAnother para.")
+    nodes = @parser.parse(tokens)
+    expect(nodes.consumed).to eq 24
+  end
 end
