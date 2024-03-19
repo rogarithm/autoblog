@@ -34,6 +34,10 @@ describe MatchesStar do
   end
 
   it "matchesFirst matches only 1" do
+    zero = @tokenizer.tokenize("\n")
+    node = mf.match_first(zero, @dash_parser, @text_parser)
+    expect(node).to eq(Node.null)
+
     one = @tokenizer.tokenize("ttt\n")
     node = mf.match_first(one, @dash_parser, @text_parser)
     expect(node.consumed).to eq(1)
