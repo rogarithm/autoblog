@@ -46,7 +46,7 @@ describe MatchesStar do
   it "matchesPlus matches 1 or more" do
     zero = @tokenizer.tokenize("")
     nodes, consumed  = mp.match_plus(zero, with: @sentence_parser)
-    expect(nodes).to eq(Node.null)
+    expect(nodes).to eq([])
 
     one = @tokenizer.tokenize("ttt")
     nodes, consumed  = mp.match_plus(one, with: @sentence_parser)
