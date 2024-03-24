@@ -2,11 +2,13 @@ require_relative "bold_parser"
 require_relative "emphasis_parser"
 require_relative "sentence_parser"
 require_relative "text_parser"
+require_relative "block_parser"
 require_relative "paragraph_parser"
 require_relative "sentences_and_eof_parser"
 require_relative "sentences_and_newline_parser"
 require_relative "body_parser"
 require_relative "dash_parser"
+require_relative "list_parser"
 require_relative "list_item_parser"
 require_relative "list_item_and_newline_parser"
 require_relative "list_item_and_eof_parser"
@@ -19,11 +21,13 @@ class ParserFactory
     emphasis_parser:               EmphasisParser,
     text_parser:                   TextParser,
     sentence_parser:               SentenceParser,
+    block_parser:                  BlockParser,
     paragraph_parser:              ParagraphParser,
     sentences_and_eof_parser:      SentencesAndNewlineParser,
     sentences_and_newline_parser:  SentencesAndEofParser,
     body_parser:                   BodyParser,
     dash_parser:                   DashParser,
+    list_parser:                   ListParser,
     list_item_parser:              ListItemParser,
     list_item_and_newline_parser:  ListItemAndNewlineParser,
     list_item_and_eof_parser:      ListItemAndEofParser,

@@ -9,7 +9,7 @@ class ListItemsAndNewlineParser < BaseParser
     return Node.null unless tokens.peek_at(consumed, 'NEWLINE')
     consumed += 1 # consume last newline
 
-    ParagraphNode.new(sentences: nodes, consumed: consumed)
+    ListNode.new(sentences: nodes, consumed: consumed)
   end
 end
 

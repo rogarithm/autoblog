@@ -10,7 +10,7 @@ class ListItemAndEofParser < BaseParser
     nodes, consumed = [node], node.consumed
     consumed += 1
 
-    ParagraphNode.new(sentences: nodes, consumed: consumed)
+    ListNode.new(sentences: nodes, consumed: consumed)
   end
 end
 

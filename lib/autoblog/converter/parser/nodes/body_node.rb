@@ -1,7 +1,7 @@
 class BodyNode
-  attr_reader :paragraphs, :consumed
-  def initialize(paragraphs:, consumed:)
-    @paragraphs = paragraphs
+  attr_reader :blocks, :consumed
+  def initialize(blocks:, consumed:)
+    @blocks = blocks
     @consumed  = consumed
   end
 
