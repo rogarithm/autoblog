@@ -20,7 +20,15 @@ describe Generator do
     @generator.generate(ast)
   end
 
-  it "generates html from markdown" do
+  it "generates html from paragraph" do
     expect(generate("__Foo__ and *text*.\n\nAnother para.")).to eq "<p><strong>Foo</strong> and <em>text</em>.</p><p>Another para.</p>"
+  end
+
+  it "generates html from 1 list item" do
+    expect(generate("- foo\n")).to eq "<ul><li>foo</li></ul>"
+  end
+
+  it "generates html from list" do
+    expect(generate("- foo\n- bar\n- baz\n")).to eq "<ul><li>foo</li><li>bar</li><li>baz</li></ul>"
   end
 end

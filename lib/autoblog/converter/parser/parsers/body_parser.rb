@@ -5,7 +5,7 @@ class BodyParser < BaseParser
   include MatchesStar
 
   def match(tokens)
-    nodes, consumed = match_star tokens, with: block_parser
+    nodes, consumed, type = match_star tokens, with: block_parser
     return Node.null if nodes.empty?
     BodyNode.new(blocks: nodes, consumed: consumed)
   end
