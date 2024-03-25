@@ -1,9 +1,9 @@
-class ParagraphNode
+class ListNode
   attr_reader :sentences, :consumed, :type
   def initialize(sentences:, consumed:)
     @sentences = sentences
     @consumed  = consumed
-    @type = 'PARAGRAPH'
+    @type = 'LIST'
   end
 
   def present?
@@ -14,3 +14,4 @@ class ParagraphNode
     false
   end
 end
+

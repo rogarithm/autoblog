@@ -15,6 +15,6 @@ class ListItemsAndEofParser < BaseParser
       return Node.null
     end
 
-    ParagraphNode.new(sentences: nodes, consumed: consumed)
+    ListNode.new(sentences: nodes, consumed: consumed)
   end
 end
