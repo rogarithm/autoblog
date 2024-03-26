@@ -20,22 +20,3 @@ task :clean do
   css_dir = Dir.glob(css_pat)
   FileUtils.rm_rf(css_dir)
 end
-
-task :test_token do
-  RSpec::Core::RakeTask.new(:spec) do |t|
-    t.pattern = 'spec/token*.rb'
-  end
-  Rake::Task["spec"].execute
-end
-task :test_parser do
-  RSpec::Core::RakeTask.new(:spec) do |t|
-    t.pattern = 'spec/parser_spec.rb'
-  end
-  Rake::Task["spec"].execute
-end
-task :test_generator do
-  RSpec::Core::RakeTask.new(:spec) do |t|
-    t.pattern = 'spec/generator_spec.rb'
-  end
-  Rake::Task["spec"].execute
-end
