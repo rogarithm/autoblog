@@ -1,4 +1,4 @@
-require_relative 'markdown_parser'
+require 'md2html'
 require 'erb'
 
 module AutoBlog
@@ -9,7 +9,6 @@ module AutoBlog
       @file_name = file.split(".").first
       @source = read_source(path, file)
       @url = make_url
-      @parser = AutoBlog::MarkdownParser.new
     end
 
     def read_source(path, file)
@@ -24,7 +23,7 @@ module AutoBlog
     end
 
     def to_html
-      @parser.convert_paragraph @source
+      Md2Html.make_html @source
     end
 
     def wrap_with_template(
