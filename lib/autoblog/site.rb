@@ -34,6 +34,11 @@ module AutoBlog
         File.join(File.dirname(__FILE__), *%w[.. .. lib css]),
         File.join(File.dirname(__FILE__), *%w[.. .. dest css])
       )
+      # make font directory, and copy every font files
+      FileUtils.cp_r(
+        File.join(File.dirname(__FILE__), *%w[.. .. lib fonts]),
+        File.join(File.dirname(__FILE__), *%w[.. .. dest fonts])
+      )
     end
 
     def process(path)
