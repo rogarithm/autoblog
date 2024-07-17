@@ -1,6 +1,11 @@
 require_relative '../lib/autoblog/post'
 
 describe AutoBlog::Post do
+  RSpec.configure do |config|
+    config.filter_run_when_matching(focus: true)
+    config.example_status_persistence_file_path = 'spec/pass_fail_history'
+  end
+
   before(:each) do
     @p = AutoBlog::Post.new(File.join(File.dirname(__FILE__), *%w[source]), 'test.md')
   end
@@ -21,5 +26,19 @@ describe AutoBlog::Post do
   it "url 정보를 만들어낼 수 있다" do
     url = @p.make_url
     expect(url).to eq("./test.html")
+  end
+
+  it "인덱스 파일에 제공할 정보를 제외하고 파싱한다" do
+    @p_with_index_content = AutoBlog::Post.new(File.join(File.dirname(__FILE__), *%w[source]), 'test_index_content.md')
+    expect(@p_with_index_content.to_html).to eq(
+"<p>
+  blah blah blah
+</p>
+")
+  end
+
+  it "인덱스 파일에 제공할 정보를 따로 빼낼 수 있다" do
+    @p_with_index_content = AutoBlog::Post.new(File.join(File.dirname(__FILE__), *%w[source]), 'test_index_content.md')
+    expect(@p_with_index_content.read_index_info(File.join(File.dirname(__FILE__), *%w[source]), 'test_index_content.md')).to eq('title: xxx')
   end
 end

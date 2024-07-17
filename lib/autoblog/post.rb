@@ -2,19 +2,38 @@ require 'md2html'
 require 'erb'
 
 module AutoBlog
+  INDEX_INFO_REGEX = /^\*\*\*index-content-ends\*\*\*/
+
   class Post
     attr_reader :url
 
     def initialize(path, file)
       @file_name = file.split(".").first
       @source = read_source(path, file)
+      @index_info = read_index_info(path, file)
       @url = make_url
     end
 
     def read_source(path, file)
-      File.read(
+      all_content = File.read(
         File.join(path, file)
       ).strip
+      splitted = all_content.split("\n")
+      src_starts = splitted.find_index {|l| l =~ INDEX_INFO_REGEX}
+      if src_starts != nil
+        return splitted[src_starts+1..-1].join("\n")
+      else
+        return splitted.join("\n")
+      end
+    end
+
+    def read_index_info(path, file)
+      all_content = File.read(
+        File.join(path, file)
+      ).strip
+      splitted = all_content.split("\n")
+      index_info_ends = splitted.find_index {|l| l =~ INDEX_INFO_REGEX}
+      splitted[0, index_info_ends].join("\n") if index_info_ends != nil
     end
 
     def make_url
