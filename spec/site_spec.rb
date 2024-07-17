@@ -29,4 +29,10 @@ describe AutoBlog::Site do
       s.prepare_index File.join(File.dirname(__FILE__), *%w[dest])
       expect(File).to exist("#{File.join(File.dirname(__FILE__), *%w[dest], "index.html")}")
   end
+
+  it "인덱스 페이지 관련 정보를 post 객체로부터 가져올 수 있다" do
+      s = AutoBlog::Site.new(File.join(File.dirname(__FILE__), *%w[source]))
+      p_with_index_info = s.posts.select {|p| p.url == "./test_index_content.html"}.first
+      expect(p s.post_title(p_with_index_info)).to eq("xxx")
+  end
 end

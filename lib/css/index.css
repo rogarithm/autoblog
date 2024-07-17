@@ -1,0 +1,87 @@
+---
+layout: nil   # no layout
+---
+/*****************************************************************************/
+/*
+/* Common
+/*
+/*****************************************************************************/
+
+/* Global Reset */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: white;
+  font: 13.34px helvetica, arial, clean, sans-serif;
+  *font-size: small;
+  text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+}
+
+h1 {
+  margin-bottom: 1em;
+}
+
+ul, li {
+	padding: 0;
+	list-style-type: none;
+}
+
+a {
+  color: #00a;
+}
+
+a:hover {
+  color: black;
+}
+
+a:visited {
+  color: #a0a;
+}
+
+/*****************************************************************************/
+/*
+/* Index page
+/*
+/*****************************************************************************/
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  src: local(''),
+  url('../fonts/noto-sans-kr-v25-latin_korean-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('../fonts/noto-sans-kr-v25-latin_korean-result.woff') format('woff'); /* Modern Browsers */
+}
+
+@font-face {
+  font-family: 'Noto Sans Mono';
+  font-style: normal;
+  src: local(''),
+  url('../fonts/NotoSansMono-Regular.ttf') format('ttf')
+}
+
+.site {
+  font-size: 110%;
+  text-align: justify;
+  width: 40em;
+  margin: 3em auto 2em auto;
+  line-height: 1.5em;
+}
+
+.title {
+  color: #a00;
+  font-weight: bold;
+  margin-bottom: 2em;
+}
+

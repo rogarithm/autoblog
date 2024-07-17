@@ -16,16 +16,37 @@ module AutoBlog
       end
     end
 
+    def post_title post
+      post.index_info.sub(/^title: /, '')
+    end
+
     def prepare_index path
-      content = ""
-      @urls.keys.each do |key|
-        content.concat("<a href=\"#{@urls[key]}\">#{key}</a>\n")
+      template_path=File.join(File.dirname(__FILE__), *%w[.. layout index.html])
+      style_path=File.join(File.dirname(__FILE__), *%w[.. css index.css])
+
+      content = "<ul>"
+      @urls.keys.each.with_index do |key, index|
+        if posts[index].index_info != nil
+          title = post_title posts[index]
+        else
+          title = key
+        end
+        content.concat("<li>
+                       <span>2024/07/19</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#{@urls[key]}\">#{title}</a></br>
+                       </li>")
       end
+      content.concat("</ul>")
+
+      b = binding
+      b.local_variable_set(:converted, content)
+      b.local_variable_set(:style, style_path)
+      template = ERB.new(File.read(template_path)).result(b)
+
       dest_path = File.join(path, "index.html")
       File.open(dest_path, 'w') do |f|
-        f.write(content)
+        f.write(template)
       end
-      content
+      path
     end
 
     def copy_static_info

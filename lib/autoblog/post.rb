@@ -5,7 +5,7 @@ module AutoBlog
   INDEX_INFO_REGEX = /^\*\*\*index-content-ends\*\*\*/
 
   class Post
-    attr_reader :url
+    attr_reader :url, :index_info
 
     def initialize(path, file)
       @file_name = file.split(".").first
@@ -50,6 +50,7 @@ module AutoBlog
       template_path=File.join(File.dirname(__FILE__), *%w[.. layout default.html]),
       style_path=File.join(File.dirname(__FILE__), *%w[.. css main.css])
     )
+
       b = binding
       b.local_variable_set(:converted, converted)
       b.local_variable_set(:style, style_path)
