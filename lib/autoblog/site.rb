@@ -24,10 +24,6 @@ module AutoBlog
       copy_static_info
     end
 
-    def post_title post
-      post.meta_info.sub(/^title: /, '')
-    end
-
     def write_index path
       template_path = File.join(File.dirname(__FILE__), *%w[.. layout index.html])
       stylesheet_path = File.join(File.dirname(__FILE__), *%w[.. css index.css])
@@ -36,7 +32,7 @@ module AutoBlog
       @urls.keys.each.with_index do |key, index|
         current_post = posts[index]
         if posts[index].meta_info != nil
-          title = post_title current_post
+          title = current_post.find_meta_info :title
         else
           title = key
         end
