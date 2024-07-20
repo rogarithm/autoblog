@@ -6,11 +6,8 @@ describe AutoBlog::Post do
     config.example_status_persistence_file_path = 'spec/pass_fail_history'
   end
 
-  before(:each) do
-    @p = AutoBlog::Post.new(File.join(File.dirname(__FILE__), *%w[source]), 'test.md')
-  end
-
   it "파일을 html로 변환할 수 있다" do
+    @p = AutoBlog::Post.new(File.join(File.dirname(__FILE__), *%w[source]), 'test.md')
     expect(@p.to_html()).to eq(
 '<p>
   HI!
@@ -19,11 +16,13 @@ describe AutoBlog::Post do
   end
 
   it "html로 변환된 파일을 저장할 수 있다" do
+    @p = AutoBlog::Post.new(File.join(File.dirname(__FILE__), *%w[source]), 'test.md')
     dest_path = @p.write(File.join(File.dirname(__FILE__), *%w[dest]))
     expect(File.exist? dest_path).to eq(true)
   end
 
   it "url 정보를 만들어낼 수 있다" do
+    @p = AutoBlog::Post.new(File.join(File.dirname(__FILE__), *%w[source]), 'test.md')
     url = @p.make_url
     expect(url).to eq("./test.html")
   end
