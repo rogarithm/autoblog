@@ -38,6 +38,6 @@ describe AutoBlog::Post do
 
   it "인덱스 파일에 제공할 정보를 따로 빼낼 수 있다" do
     @p_with_index_content = AutoBlog::Post.new(File.join(File.dirname(__FILE__), *%w[source]), 'test_index_content.md')
-    expect(@p_with_index_content.read_index_info(File.join(File.dirname(__FILE__), *%w[source]), 'test_index_content.md')).to eq('title: xxx')
+    expect(@p_with_index_content.read_meta_info(File.join(File.dirname(__FILE__), *%w[source]), 'test_index_content.md')).to eq('title: xxx')
   end
 end
