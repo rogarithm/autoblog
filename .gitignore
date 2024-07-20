@@ -1,5 +1,5 @@
 *.swp
-.DS_Store
+**/.DS_Store
 /dest
 /source
 /spec/dest
