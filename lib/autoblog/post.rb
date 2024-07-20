@@ -15,30 +15,30 @@ module AutoBlog
     end
 
     def read_source(path, file)
-      all_content = File.read(
+      file_content = File.read(
         File.join(path, file)
       ).strip
-      splitted = all_content.split("\n")
-      src_starts = splitted.find_index {|l| l =~ INDEX_INFO_REGEX}
+      lines = file_content.split("\n")
+      src_starts = lines.find_index {|l| l =~ INDEX_INFO_REGEX}
       if src_starts != nil
-        return splitted[src_starts+1..-1].join("\n")
+        return lines[src_starts+1..-1].join("\n")
       else
-        return splitted.join("\n")
+        return lines.join("\n")
       end
     end
 
     def read_index_info(path, file)
-      all_content = File.read(
+      file_content = File.read(
         File.join(path, file)
       ).strip
-      splitted = all_content.split("\n")
-      index_info_ends = splitted.find_index {|l| l =~ INDEX_INFO_REGEX}
-      splitted[0, index_info_ends].join("\n") if index_info_ends != nil
+      lines = file_content.split("\n")
+      index_info_ends = lines.find_index {|l| l =~ INDEX_INFO_REGEX}
+      lines[0, index_info_ends].join("\n") if index_info_ends != nil
     end
 
     def make_url
       ext = "html"
-      "./".concat(@file_name, ".", ext)
+      "./#{@file_name}.#{ext}"
     end
 
     def to_html
@@ -48,12 +48,12 @@ module AutoBlog
     def wrap_with_template(
       converted,
       template_path=File.join(File.dirname(__FILE__), *%w[.. layout default.html]),
-      style_path=File.join(File.dirname(__FILE__), *%w[.. css main.css])
+      stylesheet_path=File.join(File.dirname(__FILE__), *%w[.. css main.css])
     )
 
       b = binding
       b.local_variable_set(:converted, converted)
-      b.local_variable_set(:style, style_path)
+      b.local_variable_set(:style, stylesheet_path)
       template = ERB.new(File.read(template_path)).result(b)
     end
 
