@@ -16,13 +16,21 @@ module AutoBlog
       end
     end
 
+    def process(path)
+      @posts.each do |post|
+        post.write(path)
+      end
+      write_index path
+      copy_static_info
+    end
+
     def post_title post
       post.index_info.sub(/^title: /, '')
     end
 
-    def prepare_index path
-      template_path=File.join(File.dirname(__FILE__), *%w[.. layout index.html])
-      style_path=File.join(File.dirname(__FILE__), *%w[.. css index.css])
+    def write_index path
+      template_path = File.join(File.dirname(__FILE__), *%w[.. layout index.html])
+      stylesheet_path = File.join(File.dirname(__FILE__), *%w[.. css index.css])
 
       content = "<ul>"
       @urls.keys.each.with_index do |key, index|
@@ -39,7 +47,7 @@ module AutoBlog
 
       b = binding
       b.local_variable_set(:converted, content)
-      b.local_variable_set(:style, style_path)
+      b.local_variable_set(:style, stylesheet_path)
       template = ERB.new(File.read(template_path)).result(b)
 
       dest_path = File.join(path, "index.html")
@@ -60,14 +68,6 @@ module AutoBlog
         File.join(File.dirname(__FILE__), *%w[.. .. lib fonts]),
         File.join(File.dirname(__FILE__), *%w[.. .. dest fonts])
       )
-    end
-
-    def process(path)
-      @posts.each do |post|
-        post.write(path)
-      end
-      prepare_index path
-      copy_static_info
     end
   end
 end
