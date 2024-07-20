@@ -32,12 +32,11 @@ module AutoBlog
       @urls.keys.each.with_index do |key, index|
         current_post = posts[index]
         if posts[index].meta_info != nil
-          title = current_post.find_meta_info :title
-        else
-          title = key
+          title = current_post.find_meta_info("title") || key
+          published_at = current_post.find_meta_info("published_at") || ""
         end
         content.concat("<li>
-                       <span>2024/07/19</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#{@urls[key]}\">#{title}</a></br>
+                       <span>#{published_at}</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#{@urls[key]}\">#{title}</a></br>
                        </li>")
       end
       content.concat("</ul>")
