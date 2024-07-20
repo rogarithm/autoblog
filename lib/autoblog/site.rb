@@ -25,7 +25,7 @@ module AutoBlog
     end
 
     def post_title post
-      post.index_info.sub(/^title: /, '')
+      post.meta_info.sub(/^title: /, '')
     end
 
     def write_index path
@@ -34,8 +34,9 @@ module AutoBlog
 
       content = "<ul>"
       @urls.keys.each.with_index do |key, index|
-        if posts[index].index_info != nil
-          title = post_title posts[index]
+        current_post = posts[index]
+        if posts[index].meta_info != nil
+          title = post_title current_post
         else
           title = key
         end

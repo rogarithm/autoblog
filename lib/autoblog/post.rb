@@ -5,12 +5,12 @@ module AutoBlog
   INDEX_INFO_REGEX = /^\*\*\*index-content-ends\*\*\*/
 
   class Post
-    attr_reader :url, :index_info
+    attr_reader :url, :meta_info
 
     def initialize(path, file)
       @file_name = file.split(".").first
       @source = read_source(path, file)
-      @index_info = read_index_info(path, file)
+      @meta_info = read_index_info(path, file)
       @url = make_url
     end
 
