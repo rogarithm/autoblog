@@ -14,10 +14,24 @@ module AutoBlog
       @url = make_url
     end
 
-    def read_source(path, file)
-      file_content = File.read(
+    def write(path)
+      post_content = self.to_html()
+      post_page = wrap_with_template(post_content)
+      dest_path = File.join(path, "#{@file_name}.html")
+      File.open(dest_path, 'w') do |f|
+        f.write(post_page)
+      end
+      dest_path
+    end
+
+    def read_file(path, file)
+      File.read(
         File.join(path, file)
       ).strip
+    end
+
+    def read_source(path, file)
+      file_content = read_file(path, file)
       lines = file_content.split("\n")
       src_starts = lines.find_index {|l| l =~ META_INFO_REGEX}
       if src_starts != nil
@@ -28,9 +42,7 @@ module AutoBlog
     end
 
     def read_meta_info(path, file)
-      file_content = File.read(
-        File.join(path, file)
-      ).strip
+      file_content = read_file(path, file)
       lines = file_content.split("\n")
       meta_info_ends = lines.find_index {|l| l =~ META_INFO_REGEX}
       lines[0, meta_info_ends].join("\n") if meta_info_ends != nil
@@ -55,16 +67,6 @@ module AutoBlog
       b.local_variable_set(:converted, converted)
       b.local_variable_set(:style, stylesheet_path)
       template = ERB.new(File.read(template_path)).result(b)
-    end
-
-    def write(path)
-      converted = self.to_html()
-      template_wrapped = wrap_with_template(converted)
-      dest_path = File.join(path, "#{@file_name}.html")
-      File.open(dest_path, 'w') do |f|
-        f.write(template_wrapped)
-      end
-      dest_path
     end
   end
 end
