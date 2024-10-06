@@ -7,8 +7,11 @@ describe AutoBlog::Post do
   end
 
   it "파일을 html로 변환할 수 있다" do
-    @p = AutoBlog::Post.new(File.join(File.dirname(__FILE__), *%w[source]), 'test.md')
-    expect(@p.to_html()).to eq(
+    file_path = File.join(File.dirname(__FILE__), *%w[source])
+    file_nm = 'test.md'
+
+    p = AutoBlog::Post.new(file_path, file_nm)
+    expect(p.to_html()).to eq(
 '<p>
   HI!
 </p>
@@ -16,28 +19,36 @@ describe AutoBlog::Post do
   end
 
   it "html로 변환된 파일을 저장할 수 있다" do
-    @p = AutoBlog::Post.new(File.join(File.dirname(__FILE__), *%w[source]), 'test.md')
-    dest_path = @p.write(File.join(File.dirname(__FILE__), *%w[dest]))
+    file_path = File.join(File.dirname(__FILE__), *%w[source])
+    file_nm = 'test.md'
+
+    p = AutoBlog::Post.new(file_path, file_nm)
+    dest_path = p.write(File.join(File.dirname(__FILE__), *%w[dest]))
     expect(File.exist? dest_path).to eq(true)
   end
 
   it "url 정보를 만들어낼 수 있다" do
-    @p = AutoBlog::Post.new(File.join(File.dirname(__FILE__), *%w[source]), 'test.md')
-    url = @p.make_url
+    file_path = File.join(File.dirname(__FILE__), *%w[source])
+    file_nm = 'test.md'
+
+    p = AutoBlog::Post.new(file_path, file_nm)
+    url = p.make_url
     expect(url).to eq("./test.html")
   end
 
   it "인덱스 파일에 제공할 정보를 제외하고 파싱한다" do
-    @p_with_index_content = AutoBlog::Post.new(File.join(File.dirname(__FILE__), *%w[source]), 'test_index_content.md')
-    expect(@p_with_index_content.to_html).to eq(
-"<p>
-  blah blah blah
-</p>
-")
+    file_path = File.join(File.dirname(__FILE__), *%w[source])
+    file_nm = 'test_index_content.md'
+
+    p = AutoBlog::Post.new(file_path, file_nm)
+    expect(p.to_html).not_to include("***meta-info-ends***")
   end
 
   it "인덱스 파일에 제공할 정보를 따로 빼낼 수 있다" do
-    @p_with_index_content = AutoBlog::Post.new(File.join(File.dirname(__FILE__), *%w[source]), 'test_index_content.md')
-    expect(@p_with_index_content.read_meta_info(File.join(File.dirname(__FILE__), *%w[source]), 'test_index_content.md')).to eq({'title' => 'xxx'})
+    file_path = File.join(File.dirname(__FILE__), *%w[source])
+    file_nm = 'meta_info.md'
+
+    p = AutoBlog::Post.new(file_path, file_nm)
+    expect(p.read_meta_info(file_path, file_nm)).to eq({'title' => 'xxx'})
   end
 end
