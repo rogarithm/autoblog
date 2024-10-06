@@ -5,7 +5,7 @@ module AutoBlog
   META_INFO_REGEX = /^\*\*\*meta-info-ends\*\*\*/
 
   class Post
-    attr_reader :url, :meta_info
+    attr_reader :url, :meta_info, :file_name
 
     def initialize(path, file)
       @file_name = file.split(".").first
@@ -45,15 +45,18 @@ module AutoBlog
       file_content = read_file(path, file)
       lines = file_content.split("\n")
       meta_info_ends = lines.find_index {|l| l =~ META_INFO_REGEX}
-      if meta_info_ends != nil
-        meta_info = {}
-        lines[0, meta_info_ends].each do |info|
-          key = info.split(":")[0].strip
-          value = info.split(":")[1].strip
-          meta_info[key] = value ||= "EMPTY"
-        end
-        meta_info
+      if meta_info_ends.nil?
+        meta_info = {"draft" => "yes"}
+        return meta_info
       end
+
+      meta_info = {}
+      lines[0, meta_info_ends].each do |info|
+        key = info.split(":")[0].strip
+        value = info.split(":")[1].strip
+        meta_info[key] = value ||= "EMPTY"
+      end
+      meta_info
     end
 
     def find_meta_info key

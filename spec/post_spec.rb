@@ -57,4 +57,16 @@ describe AutoBlog::Post do
       }
     )
   end
+
+  it "처음 만드는 블로그 글은 초안이다" do
+    file_path = File.join(File.dirname(__FILE__), *%w[source])
+    file_nm = 'draft_post.md'
+
+    p = AutoBlog::Post.new(file_path, file_nm)
+    expect(p.meta_info).to eq(
+      {
+        'draft' => 'yes'
+      }
+    )
+  end
 end
