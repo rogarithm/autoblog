@@ -7,12 +7,10 @@ module AutoBlog
 
     def initialize(path)
       @posts = []
-      @urls = {}
       Dir["#{path}/*.md"].each do |full_path|
         md_file = full_path.split("/")[-1]
         post = Post.new(path, md_file)
         @posts << post
-        @urls[md_file.split(".").first] = post.url
       end
     end
 
@@ -29,14 +27,14 @@ module AutoBlog
       stylesheet_path = File.join(File.dirname(__FILE__), *%w[.. css index.css])
 
       content = "<ul>"
-      @urls.keys.each.with_index do |key, index|
-        current_post = posts[index]
-        if posts[index].meta_info != nil
-          title = current_post.find_meta_info("title") || key
-          published_at = current_post.find_meta_info("published_at") || ""
+      @posts.each do |post|
+        if post.meta_info != nil
+          title = post.find_meta_info("title") || post_nm
+          published_at = post.find_meta_info("published_at") || ""
         end
+
         content.concat("<li>
-                       <span>#{published_at}</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#{@urls[key]}\">#{title}</a></br>
+                       <span>#{published_at}</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#{post.url}\">#{title}</a></br>
                        </li>")
       end
       content.concat("</ul>")

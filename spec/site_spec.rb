@@ -26,8 +26,8 @@ describe AutoBlog::Site do
   end
 
   it "각 post의 url 정보를 가지고 있다" do
-    @site.urls.keys.each do |key|
-      expect(@site.urls[key]).to match(/\.\/[\w-]+\.html/)
+    @site.posts.each do |post|
+      expect(post.url).to match(/\.\/[\w-]+\.html/)
     end
   end
 
