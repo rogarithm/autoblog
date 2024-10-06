@@ -49,6 +49,12 @@ describe AutoBlog::Post do
     file_nm = 'meta_info.md'
 
     p = AutoBlog::Post.new(file_path, file_nm)
-    expect(p.read_meta_info(file_path, file_nm)).to eq({'title' => 'xxx'})
+    expect(p.read_meta_info(file_path, file_nm)).to eq(
+      {
+        'title' => 'xxx',
+        'draft' => 'no',
+        'published_at' => '2024/07/19'
+      }
+    )
   end
 end
