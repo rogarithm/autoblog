@@ -29,7 +29,7 @@ module AutoBlog
       content = "<ul>"
       @posts.each do |post|
         if post.meta_info != nil
-          title = post.find_meta_info("title") || post.file_name
+          title = post.find_meta_info("title") || post.nm
           published_at = post.find_meta_info("published_at") || ""
         end
 

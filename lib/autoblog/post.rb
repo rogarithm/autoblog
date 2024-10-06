@@ -5,10 +5,10 @@ module AutoBlog
   META_INFO_REGEX = /^\*\*\*meta-info-ends\*\*\*/
 
   class Post
-    attr_reader :url, :meta_info, :file_name
+    attr_reader :url, :meta_info, :nm
 
     def initialize(path, file)
-      @file_name = file.split(".").first
+      @nm = file.split(".").first
       @source = read_source(path, file)
       @meta_info = read_meta_info(path, file)
       @url = make_url
@@ -17,7 +17,7 @@ module AutoBlog
     def write(path)
       post_content = self.to_html()
       post_page = wrap_with_template(post_content)
-      dest_path = File.join(path, "#{@file_name}.html")
+      dest_path = File.join(path, "#{@nm}.html")
       File.open(dest_path, 'w') do |f|
         f.write(post_page)
       end
@@ -65,7 +65,7 @@ module AutoBlog
 
     def make_url
       ext = "html"
-      "./#{@file_name}.#{ext}"
+      "./#{@nm}.#{ext}"
     end
 
     def to_html
