@@ -38,7 +38,7 @@ describe AutoBlog::Post do
 
   it "인덱스 파일에 제공할 정보를 제외하고 파싱한다" do
     file_path = File.join(File.dirname(__FILE__), *%w[source])
-    file_nm = 'test_index_content.md'
+    file_nm = 'has_meta_info.md'
 
     p = AutoBlog::Post.new(file_path, file_nm)
     expect(p.to_html).not_to include("***meta-info-ends***")
@@ -46,7 +46,7 @@ describe AutoBlog::Post do
 
   it "인덱스 파일에 제공할 정보를 따로 빼낼 수 있다" do
     file_path = File.join(File.dirname(__FILE__), *%w[source])
-    file_nm = 'meta_info.md'
+    file_nm = 'has_meta_info.md'
 
     p = AutoBlog::Post.new(file_path, file_nm)
     expect(p.read_meta_info(file_path, file_nm)).to eq(

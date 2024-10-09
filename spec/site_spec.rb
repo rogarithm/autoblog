@@ -37,7 +37,7 @@ describe AutoBlog::Site do
   end
 
   it "인덱스 페이지 관련 정보를 post 객체로부터 가져올 수 있다" do
-    post = @site.posts.select {|p| p.url == "./test_index_content.html"}.first
+    post = @site.posts.select {|p| p.url == "./has_meta_info.html"}.first
     expect(post.find_meta_info "title").to eq("xxx")
   end
 end
