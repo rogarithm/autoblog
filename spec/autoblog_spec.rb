@@ -5,6 +5,7 @@ describe AutoBlog do
     AutoBlog.process(
       File.join(File.dirname(__FILE__), *%w[source]),
       File.join(File.dirname(__FILE__), *%w[dest]),
+      "no"
     )
     clean_up(File.join(File.dirname(__FILE__), *%w[dest]))
   end

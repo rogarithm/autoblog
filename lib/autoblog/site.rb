@@ -14,30 +14,26 @@ module AutoBlog
       end
     end
 
-    def process(path)
-      @posts.each do |post|
+    def process path, include_draft="no"
+      posts2proc = @posts
+      if include_draft == "no"
+        posts2proc = posts2proc
+                       .select {|p| p.find_meta_info("draft") == "no"}
+      end
+
+      posts2proc
+        .each do |post|
         post.write(path)
       end
-      write_index path
+      write_index path, include_draft
       copy_static_info
     end
 
-    def write_index path
+    def write_index path, include_draft
+      content = make_index_content path, include_draft
+
       template_path = File.join(File.dirname(__FILE__), *%w[.. layout index.html])
       stylesheet_path = File.join(File.dirname(__FILE__), *%w[.. css index.css])
-
-      content = "<ul>"
-      @posts.each do |post|
-        if post.meta_info != nil
-          title = post.find_meta_info("title") || post.nm
-          published_at = post.find_meta_info("published_at") || ""
-        end
-
-        content.concat("<li>
-                       <span>#{published_at}</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#{post.url}\">#{title}</a></br>
-                       </li>")
-      end
-      content.concat("</ul>")
 
       b = binding
       b.local_variable_set(:converted, content)
@@ -49,6 +45,29 @@ module AutoBlog
         f.write(template)
       end
       path
+    end
+
+    def make_index_content path, include_draft
+      content = "<ul>"
+
+      posts2proc = @posts
+      if include_draft == "no"
+        posts2proc = posts2proc
+                       .select {|p| p.find_meta_info("draft") == "no"}
+      end
+
+      posts2proc
+        .each do |post|
+        if post.meta_info != nil
+          title = post.find_meta_info("title") || post.nm
+          published_at = post.find_meta_info("published_at") || ""
+        end
+
+        content.concat("<li>
+                       <span>#{published_at}</span>&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"#{post.url}\">#{title}</a></br>
+                       </li>")
+      end
+      content.concat("</ul>")
     end
 
     def copy_static_info
