@@ -69,6 +69,10 @@ module AutoBlog
     end
 
     def to_html
+      #TODO
+      # @source 안에 내용이 없을 경우, 이 상황을 에러 메시지로 알려주고
+      # 해당 파일만 html로 변환하지 않도록 로직 바꾸기
+
       Md2Html.make_html @source
     end
 
