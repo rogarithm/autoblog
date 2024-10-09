@@ -8,7 +8,7 @@ describe AutoBlog::Post do
 
   it "파일을 html로 변환할 수 있다" do
     file_path = File.join(File.dirname(__FILE__), *%w[source])
-    file_nm = 'test.md'
+    file_nm = 'simple.md'
 
     p = AutoBlog::Post.new(file_path, file_nm)
     expect(p.to_html()).to eq(
@@ -20,7 +20,7 @@ describe AutoBlog::Post do
 
   it "html로 변환된 파일을 저장할 수 있다" do
     file_path = File.join(File.dirname(__FILE__), *%w[source])
-    file_nm = 'test.md'
+    file_nm = 'simple.md'
 
     p = AutoBlog::Post.new(file_path, file_nm)
     dest_path = p.write(File.join(File.dirname(__FILE__), *%w[dest]))
@@ -29,11 +29,11 @@ describe AutoBlog::Post do
 
   it "url 정보를 만들어낼 수 있다" do
     file_path = File.join(File.dirname(__FILE__), *%w[source])
-    file_nm = 'test.md'
+    file_nm = 'simple.md'
 
     p = AutoBlog::Post.new(file_path, file_nm)
     url = p.make_url
-    expect(url).to eq("./test.html")
+    expect(url).to eq("./simple.html")
   end
 
   it "인덱스 파일에 제공할 정보를 제외하고 파싱한다" do
