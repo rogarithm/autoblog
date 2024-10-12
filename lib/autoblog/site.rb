@@ -14,7 +14,7 @@ module AutoBlog
       end
     end
 
-    def process path, include_draft="no"
+    def process dest_path, include_draft="no"
       posts2proc = @posts
       if include_draft == "no"
         posts2proc = posts2proc
@@ -23,10 +23,10 @@ module AutoBlog
 
       posts2proc
         .each do |post|
-        post.write(path)
+        post.write(dest_path)
       end
-      write_index path, include_draft
-      copy_static_info
+      write_index dest_path, include_draft
+      copy_static_info dest_path
     end
 
     def write_index path, include_draft
@@ -70,16 +70,16 @@ module AutoBlog
       content.concat("</ul>")
     end
 
-    def copy_static_info
+    def copy_static_info dest_path = "dest"
       # make css directory, and copy every .css files in source to css directory
       FileUtils.cp_r(
         File.join(File.dirname(__FILE__), *%w[.. .. lib css]),
-        File.join(File.dirname(__FILE__), *%w[.. .. dest css])
+        File.join(dest_path, *%w[css])
       )
       # make font directory, and copy every font files
       FileUtils.cp_r(
         File.join(File.dirname(__FILE__), *%w[.. .. lib fonts]),
-        File.join(File.dirname(__FILE__), *%w[.. .. dest fonts])
+        File.join(dest_path, *%w[fonts])
       )
     end
   end

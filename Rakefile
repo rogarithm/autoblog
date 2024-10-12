@@ -2,13 +2,36 @@ require_relative './lib/autoblog.rb'
 require 'rake/clean'
 require 'rspec/core/rake_task'
 
-task :default => [:publish]
+task :default => [:draft]
 
-task :publish => [:clean] do
+task :draft => [:clean_draft] do
+  draft_dir = File.join(*%w[/ tmp drafts])
+  FileUtils.mkdir_p draft_dir if !Dir.exist?(draft_dir)
+
   AutoBlog.process(
     File.join(File.dirname(__FILE__), *%w[source]),
-    File.join(File.dirname(__FILE__), *%w[dest]),
+    draft_dir,
+    "yes"
   )
+
+  puts "you can check your drafts in #{draft_dir}"
+end
+
+task :clean_draft do
+  draft_dir = File.join(*%w[/ tmp drafts])
+  FileUtils.rm_r draft_dir if Dir.exist?(draft_dir)
+end
+
+task :publish => [:clean] do
+  publish_dir = File.join(File.dirname(__FILE__), *%w[dest])
+
+  AutoBlog.process(
+    File.join(File.dirname(__FILE__), *%w[source]),
+    publish_dir,
+    "no"
+  )
+
+  puts "you can check your posts in #{publish_dir}"
 end
 
 task :clean do
