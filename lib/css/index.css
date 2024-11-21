@@ -61,7 +61,7 @@ a:visited {
   font-style: normal;
   src: local(''),
   url('../fonts/noto-sans-kr-v25-latin_korean-regular.woff2') format('woff2'), /* Super Modern Browsers */
-  url('../fonts/noto-sans-kr-v25-latin_korean-result.woff') format('woff'); /* Modern Browsers */
+  url('../fonts/noto-sans-kr-v25-latin_korean-regular.woff') format('woff'); /* Modern Browsers */
 }
 
 @font-face {
