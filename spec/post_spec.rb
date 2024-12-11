@@ -17,6 +17,7 @@ describe AutoBlog::Post, "post 객체는" do
     p = AutoBlog::Post.new(file_path, file_nm)
     dest_path = p.write(File.join(File.dirname(__FILE__), *%w[dest]))
     expect(File.exist? dest_path).to eq(true)
+    expect(dest_path.split("/")[-1]).to eq('simple.html')
   end
 
   it "생성한 html의 상대 url 정보를 만들어낼 수 있다" do
