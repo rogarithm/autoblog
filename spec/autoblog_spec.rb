@@ -1,4 +1,5 @@
 require_relative '../lib/autoblog'
+require 'helpers/spec_helper'
 
 describe AutoBlog do
   it "site 객체에 요청을 전달한다" do

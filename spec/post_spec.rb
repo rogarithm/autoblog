@@ -1,11 +1,7 @@
 require_relative '../lib/autoblog/post'
+require 'helpers/spec_helper'
 
 describe AutoBlog::Post do
-  RSpec.configure do |config|
-    config.filter_run_when_matching(focus: true)
-    config.example_status_persistence_file_path = 'spec/pass_fail_history'
-  end
-
   it "파일을 html로 변환할 수 있다" do
     file_path = File.join(File.dirname(__FILE__), *%w[source])
     file_nm = 'simple.md'

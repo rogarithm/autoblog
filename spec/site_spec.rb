@@ -2,11 +2,6 @@ require_relative '../lib/autoblog/site'
 require 'helpers/spec_helper'
 
 describe AutoBlog::Site do
-  RSpec.configure do |config|
-    config.filter_run_when_matching(focus: true)
-    config.example_status_persistence_file_path = 'spec/pass_fail_history'
-  end
-
   before(:each) do
       @site = AutoBlog::Site.new(File.join(File.dirname(__FILE__), *%w[source]))
   end
