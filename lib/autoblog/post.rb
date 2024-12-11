@@ -5,7 +5,7 @@ module AutoBlog
   META_INFO_REGEX = /^\*\*\*meta-info-ends\*\*\*/
 
   class Post
-    attr_reader :url, :meta_info, :nm
+    attr_reader :url, :meta_info, :nm, :source
 
     def initialize(path, file)
       @nm = file.split(".").first
