@@ -72,13 +72,16 @@ module AutoBlog
 
     def copy_static_info dest_path = "dest"
       # make css directory, and copy every .css files in source to css directory
+      FileUtils.mkdir_p(File.join(File.dirname(__FILE__), *%w[.. .. lib css]))
       FileUtils.cp_r(
-        File.join(File.dirname(__FILE__), *%w[.. .. lib css]),
+        File.join(File.dirname(__FILE__), *%w[.. .. lib css/.]),
         File.join(dest_path, *%w[css])
       )
+
       # make font directory, and copy every font files
+      FileUtils.mkdir_p(File.join(File.dirname(__FILE__), *%w[.. .. lib fonts]))
       FileUtils.cp_r(
-        File.join(File.dirname(__FILE__), *%w[.. .. lib fonts]),
+        File.join(File.dirname(__FILE__), *%w[.. .. lib fonts/.]),
         File.join(dest_path, *%w[fonts])
       )
     end
