@@ -1,5 +1,6 @@
 require 'md2html'
 require 'erb'
+require_relative 'meta_info'
 
 module AutoBlog
   class Post

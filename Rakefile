@@ -11,7 +11,7 @@ task :draft => [:clean_draft] do
   AutoBlog.process(
     File.join(File.dirname(__FILE__), *%w[source]),
     draft_dir,
-    "yes"
+    :draft
   )
 
   puts "you can check your drafts in #{draft_dir}"
@@ -28,7 +28,7 @@ task :publish => [:clean] do
   AutoBlog.process(
     File.join(File.dirname(__FILE__), *%w[source]),
     publish_dir,
-    "no"
+    :publish
   )
 
   puts "you can check your posts in #{publish_dir}"

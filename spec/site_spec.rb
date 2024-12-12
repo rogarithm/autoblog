@@ -14,7 +14,7 @@ describe AutoBlog::Site do
 
   it "html 파일을 만들어 dest 디렉토리에 저장한다" do
     dest_dir = File.join(File.dirname(__FILE__), *%w[dest])
-    @site.process(dest_dir)
+    @site.process(dest_dir, :publish)
     clean_up(dest_dir)
   end
 

@@ -14,9 +14,9 @@ module AutoBlog
       end
     end
 
-    def process dest_path, include_draft="no"
+    def process dest_path, publish_type
       posts2proc = @posts
-      if include_draft == "no"
+      if publish_type == :publish
         posts2proc = posts2proc
                        .select {|p| p.find_meta_info("draft") == "no"}
       end
@@ -25,12 +25,12 @@ module AutoBlog
         .each do |post|
         post.write(dest_path)
       end
-      write_index dest_path, include_draft
+      write_index dest_path, publish_type
       copy_static_info dest_path
     end
 
-    def write_index path, include_draft
-      content = make_index_content path, include_draft
+    def write_index path, publish_type
+      content = make_index_content path, publish_type
 
       template_path = File.join(File.dirname(__FILE__), *%w[.. layout index.html])
       stylesheet_path = File.join(File.dirname(__FILE__), *%w[.. css index.css])
@@ -47,11 +47,11 @@ module AutoBlog
       path
     end
 
-    def make_index_content path, include_draft
+    def make_index_content path, publish_type
       content = "<ul>"
 
       posts2proc = @posts
-      if include_draft == "no"
+      if publish_type == :publish
         posts2proc = posts2proc
                        .select {|p| p.find_meta_info("draft") == "no"}
       end
