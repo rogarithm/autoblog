@@ -34,7 +34,8 @@ module AutoBlog
     end
 
     def read_meta_info(path, file)
-      MetaInfo.new(path, file).read_meta_info(path, file)
+      file_content = File.read(File.join(path, file)).strip
+      MetaInfo.new(file_content).read_meta_info
     end
 
     def find_meta_info key

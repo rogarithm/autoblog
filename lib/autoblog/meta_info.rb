@@ -2,14 +2,12 @@ module AutoBlog
   class MetaInfo
     END_SIGN = /^\*\*\*meta-info-ends\*\*\*/
 
-    def initialize(path, file)
-      @path = path
+    def initialize(file)
       @file = file
     end
 
-    def read_meta_info(path, file)
-      file_content = File.read(File.join(path, file)).strip
-      lines = file_content.split("\n")
+    def read_meta_info
+      lines = @file.split("\n")
       meta_info_ends = lines.find_index {|l| l =~ END_SIGN}
       if meta_info_ends.nil?
         meta_info = {"draft" => "yes"}
