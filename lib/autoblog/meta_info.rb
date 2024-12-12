@@ -1,5 +1,9 @@
+require_relative 'logging'
+
 module AutoBlog
   class MetaInfo
+    include Logging
+
     END_SIGN = /^\*\*\*meta-info-ends\*\*\*/
 
     attr_reader :hash
@@ -34,21 +38,23 @@ module AutoBlog
       required_keys = ["title", "published_at", "draft"]
 
       if required_keys.any? {|key| @hash[key].nil?}
-        msg << "#{post.src_path}\n  required field not provided:"
+        msg << "\nrequired field not provided:"
         required_keys.each do |key|
           msg << " #{key}," if @hash[key].nil?
         end
         msg.sub!(/,$/, "")
-        msg << "\n  trying to set default value for the fields..."
-        msg << "\n  but you need to write in the markdown source file"
+        msg << "\n  in #{post.src_path}"
+        msg << "\n  set default value for the fields"
+        msg << "\n  but you need to write values in the source file"
+
+        logger.warn(msg)
       end
 
       today = Date.today.to_s.gsub("-", "/")
-      title, published_at, draft, msg = [
+      title, published_at, draft = [
         @hash["title"] || post.nm,
         @hash["published_at"] || today,
-        @hash["draft"],
-        msg
+        @hash["draft"]
       ]
     end
   end

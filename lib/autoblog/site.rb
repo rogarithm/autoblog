@@ -60,7 +60,7 @@ module AutoBlog
       posts2proc
         .each do |post|
         if post.meta_info != nil
-          title, published_at, ignore, msg = post.make_meta_info
+          title, published_at, ignore = post.make_meta_info
         end
 
         content.concat("<li>

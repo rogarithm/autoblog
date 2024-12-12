@@ -14,9 +14,20 @@
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require_relative './file_helper'
+require_relative '../../lib/autoblog/logging'
 
 RSpec.configure do |config|
   config.include FileHelper
+
+  RSpec.configure do |config|
+    config.before(:suite) do
+      AutoBlog::Logging.redirect_output(File.open(File::NULL, 'w'))
+    end
+
+    config.after(:suite) do
+      AutoBlog::Logging.redirect_output($stderr)
+    end
+  end
 
   RSpec.configure do |config|
     config.filter_run_when_matching(focus: true)

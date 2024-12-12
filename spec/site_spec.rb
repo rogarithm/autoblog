@@ -38,7 +38,7 @@ describe AutoBlog::Site do
       p.url == "./has_meta_info.html"
     }[0].make_meta_info
 
-    expect(meta_info[0..2]).to eq(["xxx", "2024/07/19", "no"])
+    expect(meta_info).to eq(["xxx", "2024/07/19", "no"])
   end
 
   it "인덱스 페이지 관련 정보 중 필수값이 없는 경우를 처리할 수 있다" do
@@ -46,8 +46,7 @@ describe AutoBlog::Site do
       p.url == "./draft_post.html"
     }[0].make_meta_info
 
-    expect(meta_info[0..2]).to eq(["draft_post", Date.today.to_s.gsub("-", "/"), "yes"])
-    expect(meta_info[3]).not_to be(nil)
+    expect(meta_info).to eq(["draft_post", Date.today.to_s.gsub("-", "/"), "yes"])
   end
 
   it "publish할 때는 초안 블로그 글을 제외할 수 있다" do
