@@ -24,5 +24,9 @@ module AutoBlog
       end
       meta_info
     end
+
+    def find_meta_info key
+      @hash[key]
+    end
   end
 end

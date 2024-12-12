@@ -38,8 +38,8 @@ module AutoBlog
       MetaInfo.new(file_content)
     end
 
-    def find_meta_info key
-      @meta_info.hash[key]
+    def find_meta_info(key)
+      @meta_info.find_meta_info(key)
     end
 
     def make_url(ext="html")
