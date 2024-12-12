@@ -28,5 +28,28 @@ module AutoBlog
     def find_meta_info key
       @hash[key]
     end
+
+    def make_meta_info(post)
+      msg = ""
+      required_keys = ["title", "published_at", "draft"]
+
+      if required_keys.any? {|key| @hash[key].nil?}
+        msg << "#{post.src_path}\n  required field not provided:"
+        required_keys.each do |key|
+          msg << " #{key}," if @hash[key].nil?
+        end
+        msg.sub!(/,$/, "")
+        msg << "\n  trying to set default value for the fields..."
+        msg << "\n  but you need to write in the markdown source file"
+      end
+
+      today = Date.today.to_s.gsub("-", "/")
+      title, published_at, draft, msg = [
+        @hash["title"] || post.nm,
+        @hash["published_at"] || today,
+        @hash["draft"],
+        msg
+      ]
+    end
   end
 end

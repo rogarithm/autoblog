@@ -1,5 +1,6 @@
 require_relative 'post'
 require 'fileutils'
+require 'date'
 
 module AutoBlog
   class Site
@@ -18,7 +19,7 @@ module AutoBlog
       posts2proc = @posts
       if publish_type == :publish
         posts2proc = posts2proc
-                       .select {|p| p.find_meta_info("draft") == "no"}
+                       .select {|p| p.is_draft? == false}
       end
 
       posts2proc
@@ -53,14 +54,13 @@ module AutoBlog
       posts2proc = @posts
       if publish_type == :publish
         posts2proc = posts2proc
-                       .select {|p| p.find_meta_info("draft") == "no"}
+                       .select {|p| p.is_draft? == false}
       end
 
       posts2proc
         .each do |post|
         if post.meta_info != nil
-          title = post.find_meta_info("title") || post.nm
-          published_at = post.find_meta_info("published_at") || ""
+          title, published_at, ignore, msg = post.make_meta_info
         end
 
         content.concat("<li>

@@ -4,9 +4,10 @@ require_relative 'meta_info'
 
 module AutoBlog
   class Post
-    attr_reader :nm, :source, :meta_info, :url
+    attr_reader :src_path, :nm, :source, :meta_info, :url
 
     def initialize(path, file)
+      @src_path = File.join(path, file)
       @nm = file.split(".").first
       @source = read_source(path, file)
       @meta_info = read_meta_info(path, file)
@@ -39,8 +40,12 @@ module AutoBlog
       MetaInfo.new(file_content)
     end
 
-    def find_meta_info(key)
-      @meta_info.find_meta_info(key)
+    def make_meta_info
+      @meta_info.make_meta_info(self)
+    end
+
+    def is_draft?
+      @meta_info.find_meta_info("draft") == "yes"
     end
 
     def make_url(ext="html")
