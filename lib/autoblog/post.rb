@@ -35,11 +35,11 @@ module AutoBlog
 
     def read_meta_info(path, file)
       file_content = File.read(File.join(path, file)).strip
-      MetaInfo.new(file_content).read_meta_info
+      MetaInfo.new(file_content)
     end
 
     def find_meta_info key
-      @meta_info[key]
+      @meta_info.hash[key]
     end
 
     def make_url(ext="html")

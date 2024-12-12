@@ -43,8 +43,8 @@ describe AutoBlog::Post, "post 객체는" do
 
     p = AutoBlog::Post.new(file_path, file_nm)
     meta_info = p.read_meta_info(file_path, file_nm)
-    meta_info.keys.each {|key|
-      expect(meta_info[key]).not_to be_empty
+    meta_info.hash.keys.each {|key|
+      expect(meta_info.hash[key]).not_to be_empty
     }
   end
 
@@ -54,6 +54,6 @@ describe AutoBlog::Post, "post 객체는" do
 
     p = AutoBlog::Post.new(file_path, file_nm)
     meta_info = p.read_meta_info(file_path, file_nm)
-    expect(meta_info['draft']).to eq('yes')
+    expect(meta_info.hash['draft']).to eq('yes')
   end
 end

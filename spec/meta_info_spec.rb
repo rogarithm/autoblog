@@ -7,7 +7,7 @@ describe AutoBlog::MetaInfo, "meta info 객체는" do
     file_nm = 'has_meta_info.md'
     file_content = File.read(File.join(file_path, file_nm)).strip
 
-    meta_info = AutoBlog::MetaInfo.new(file_content).read_meta_info
+    meta_info = AutoBlog::MetaInfo.new(file_content).hash
     meta_info.keys.each {|key|
       expect(meta_info[key]).not_to be_empty
     }
@@ -18,7 +18,7 @@ describe AutoBlog::MetaInfo, "meta info 객체는" do
     file_nm = 'draft_post.md'
     file_content = File.read(File.join(file_path, file_nm)).strip
 
-    meta_info = AutoBlog::MetaInfo.new(file_content).read_meta_info
+    meta_info = AutoBlog::MetaInfo.new(file_content).hash
     expect(meta_info['draft']).to eq('yes')
   end
 end
