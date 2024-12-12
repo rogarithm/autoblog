@@ -1,13 +1,13 @@
 require 'md2html'
 require 'erb'
+require_relative 'meta_info'
 
 module AutoBlog
-  META_INFO_REGEX = /^\*\*\*meta-info-ends\*\*\*/
-
   class Post
-    attr_reader :nm, :source, :meta_info, :url
+    attr_reader :src_path, :nm, :source, :meta_info, :url
 
     def initialize(path, file)
+      @src_path = File.join(path, file)
       @nm = file.split(".").first
       @source = read_source(path, file)
       @meta_info = read_meta_info(path, file)
@@ -24,16 +24,10 @@ module AutoBlog
       dest_path
     end
 
-    def read_file(path, file)
-      File.read(
-        File.join(path, file)
-      ).strip
-    end
-
     def read_source(path, file)
-      file_content = read_file(path, file)
+      file_content = File.read(File.join(path, file)).strip
       lines = file_content.split("\n")
-      src_starts = lines.find_index {|l| l =~ META_INFO_REGEX}
+      src_starts = lines.find_index {|l| l =~ MetaInfo::END_SIGN}
       if src_starts != nil
         return lines[src_starts+1..-1].join("\n")
       else
@@ -42,25 +36,16 @@ module AutoBlog
     end
 
     def read_meta_info(path, file)
-      file_content = read_file(path, file)
-      lines = file_content.split("\n")
-      meta_info_ends = lines.find_index {|l| l =~ META_INFO_REGEX}
-      if meta_info_ends.nil?
-        meta_info = {"draft" => "yes"}
-        return meta_info
-      end
-
-      meta_info = {}
-      lines[0, meta_info_ends].each do |info|
-        key = info.split(":")[0].strip
-        value = info.split(":")[1].strip
-        meta_info[key] = value ||= "EMPTY"
-      end
-      meta_info
+      file_content = File.read(File.join(path, file)).strip
+      MetaInfo.new(file_content)
     end
 
-    def find_meta_info key
-      @meta_info[key]
+    def make_meta_info
+      @meta_info.make_meta_info(self)
+    end
+
+    def is_draft?
+      @meta_info.find_meta_info("draft") == "yes"
     end
 
     def make_url(ext="html")

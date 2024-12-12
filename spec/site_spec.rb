@@ -14,7 +14,7 @@ describe AutoBlog::Site do
 
   it "html 파일을 만들어 dest 디렉토리에 저장한다" do
     dest_dir = File.join(File.dirname(__FILE__), *%w[dest])
-    @site.process(dest_dir)
+    @site.process(dest_dir, :publish)
     clean_up(dest_dir)
   end
 
@@ -36,9 +36,17 @@ describe AutoBlog::Site do
   it "인덱스 페이지 관련 정보를 post 객체로부터 가져올 수 있다" do
     meta_info = @site.posts.select {|p|
       p.url == "./has_meta_info.html"
-    }[0].find_meta_info("title")
+    }[0].make_meta_info
 
-    expect(meta_info).to eq("xxx")
+    expect(meta_info).to eq(["xxx", "2024/07/19", "no"])
+  end
+
+  it "인덱스 페이지 관련 정보 중 필수값이 없는 경우를 처리할 수 있다" do
+    meta_info = @site.posts.select {|p|
+      p.url == "./draft_post.html"
+    }[0].make_meta_info
+
+    expect(meta_info).to eq(["draft_post", Date.today.to_s.gsub("-", "/"), "yes"])
   end
 
   it "publish할 때는 초안 블로그 글을 제외할 수 있다" do
