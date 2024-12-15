@@ -84,6 +84,12 @@ module AutoBlog
         File.join(File.dirname(__FILE__), *%w[.. .. lib fonts/.]),
         File.join(dest_path, *%w[fonts])
       )
+
+      FileUtils.mkdir_p(File.join(dest_path, *%w[images]))
+      FileUtils.cp_r(
+        File.join(File.dirname(__FILE__), *%w[.. .. source images/.]),
+        File.join(dest_path, *%w[images])
+      )
     end
   end
 end
