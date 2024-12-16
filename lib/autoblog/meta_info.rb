@@ -24,7 +24,7 @@ module AutoBlog
       lines[0, meta_info_ends].each do |info|
         key = info.split(":")[0].strip
         value = info.split(":")[1].strip
-        meta_info[key] = value ||= "EMPTY"
+        meta_info[key] = value || nil
       end
       meta_info
     end
