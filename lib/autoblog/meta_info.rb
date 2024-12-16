@@ -37,7 +37,9 @@ module AutoBlog
       @hash[key]
     end
 
-    def make_meta_info(post)
+    def make_meta_info(post_info = {})
+      post_nm = post_info[:nm]
+      src_path = post_info[:src_path]
       msg = ""
       required_keys = ["title", "published_at", "draft"]
 
@@ -47,7 +49,7 @@ module AutoBlog
           msg << " #{key}," if @hash[key].nil?
         end
         msg.sub!(/,$/, "")
-        msg << "\n  in #{post.src_path}"
+        msg << "\n  in #{src_path}"
         msg << "\n  set default value for the fields"
         msg << "\n  but you need to write values in the source file"
 
@@ -56,7 +58,7 @@ module AutoBlog
 
       today = Date.today.to_s.gsub("-", "/")
       title, published_at, draft = [
-        @hash["title"] || post.nm,
+        @hash["title"] || post_nm,
         @hash["published_at"] || today,
         @hash["draft"]
       ]
