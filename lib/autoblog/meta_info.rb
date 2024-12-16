@@ -8,11 +8,15 @@ module AutoBlog
 
     attr_reader :hash
 
-    def initialize(file)
-      @hash = read_meta_info(file)
+    def initialize(hash)
+      @hash = hash
     end
 
-    def read_meta_info(file)
+    def self.from_file(file_content)
+      self.new(self.read_meta_info(file_content))
+    end
+
+    def self.read_meta_info(file)
       lines = file.split("\n")
       meta_info_ends = lines.find_index {|l| l =~ END_SIGN}
       if meta_info_ends.nil?
