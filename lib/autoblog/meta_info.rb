@@ -19,8 +19,8 @@ module AutoBlog
       lines = file.split("\n")
       meta_info_ends = lines.find_index {|l| l =~ END_SIGN}
       if meta_info_ends.nil?
-        meta_info = {"draft" => "yes"}
-        return meta_info
+        meta_info = {}
+        return self.new(meta_info).make_meta_info
       end
 
       meta_info = {}

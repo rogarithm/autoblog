@@ -56,6 +56,8 @@ module AutoBlog
         posts2proc = posts2proc
                        .select {|p| p.is_draft? == false}
       end
+      posts2proc.sort_by! {|p| p.meta_info["published_at"]}
+                .reverse!
 
       posts2proc
         .each do |post|
