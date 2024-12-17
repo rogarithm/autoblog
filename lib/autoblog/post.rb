@@ -37,11 +37,16 @@ module AutoBlog
 
     def read_meta_info(path, file)
       file_content = File.read(File.join(path, file)).strip
-      MetaInfo.new(file_content)
+      MetaInfo::from_file(file_content)
     end
 
     def make_meta_info
-      @meta_info.make_meta_info(self)
+      @meta_info.make_meta_info(
+        post_info={
+          :nm => self.nm,
+          :src_path => self.src_path
+        }
+      )
     end
 
     def is_draft?

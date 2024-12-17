@@ -56,11 +56,14 @@ module AutoBlog
         posts2proc = posts2proc
                        .select {|p| p.is_draft? == false}
       end
+      posts2proc.sort_by! {|p| p.meta_info["published_at"]}
+                .reverse!
 
       posts2proc
         .each do |post|
         if post.meta_info != nil
-          title, published_at, ignore = post.make_meta_info
+          meta_info = post.make_meta_info
+          title, published_at, ignore = meta_info["title"], meta_info["published_at"], meta_info["draft"]
         end
 
         content.concat("<li>
