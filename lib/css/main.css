@@ -120,3 +120,9 @@ pre code {
   font-weight: 400;
   white-space: pre-wrap;
 }
+
+blockquote {
+  margin-inline-start: 0.5em;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+}
