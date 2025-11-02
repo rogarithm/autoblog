@@ -27,6 +27,8 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-size: 100%;
+  font-family: 'Noto Sans KR';
+	font-weight: 800;
 }
 
 h1 {
@@ -96,12 +98,6 @@ table {
 
 .site .meta {
   color: #aaa;
-}
-
-h1 {
-  font-family: 'Noto Sans KR';
-  font-size: 20px;
-  font-weight: 400;
 }
 
 p, ul, li {
